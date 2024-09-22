@@ -9,9 +9,7 @@ const db_host=process.env.db_host;
 const db_user= process.env.db_user;
 const db_password= process.env.db_password;
 const db= process.env.db;
-const sql2=process.env.qry2;
 const sql1=process.env.qry1;
-const sql3=process.env.qry3;
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,23 +43,23 @@ app.get('/items', (req, res) => {
         res.json(results);
     });
 });
-app.get('/products', (req, res) => {
-    connection.query(sql3, (err, results) => {
-        if (err) {
-            console.error('Error fetching items:', err);
-            res.status(500).send('Error fetching items');
-            return;
-        }
-        res.json(results);
-    });
-});
-app.post('/submit', (req, res) => {
-    const {seller_id,product,quantity,price,loc} = req.body;
-    connection.query(sql2, [seller_id,product, quantity, price,loc], (err, result) => {
-        if (err) throw err;
-        res.send('Product added to database');
-    });
-});
+// app.get('/products', (req, res) => {
+//     connection.query(sql3, (err, results) => {
+//         if (err) {
+//             console.error('Error fetching items:', err);
+//             res.status(500).send('Error fetching items');
+//             return;
+//         }
+//         res.json(results);
+//     });
+// });
+// app.post('/submit', (req, res) => {
+//     const {seller_id,product,quantity,price,loc} = req.body;
+//     connection.query(sql2, [seller_id,product, quantity, price,loc], (err, result) => {
+//         if (err) throw err;
+//         res.send('Product added to database');
+//     });
+// });
 // Start the server
 app.listen(port, () => {
     console.log(`Server running on port${port}`);
